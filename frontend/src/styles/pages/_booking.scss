@@ -1,0 +1,383 @@
+// ===========================================
+// Booking Page Styles
+// ===========================================
+
+@use '../abstracts' as *;
+
+.booking-page {
+  @include flex-column;
+  gap: $spacing-4;
+}
+
+// Header
+.booking-header {
+  text-align: center;
+  padding: $spacing-2 0;
+
+  h2 {
+    @include heading($font-2xl);
+    margin-bottom: $spacing-1;
+  }
+
+  p {
+    color: $text-muted;
+    font-size: $font-base;
+  }
+}
+
+// Tabs
+.booking-tabs {
+  @include flex(row, flex-start, center, $spacing-2);
+  overflow-x: auto;
+  padding: $spacing-2 0;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.booking-tab {
+  @include flex(row, center, center, $spacing-2);
+  padding: $spacing-2 $spacing-4;
+  background: $white;
+  border: 1.5px solid $border-color;
+  border-radius: $radius-full;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  color: $text-secondary;
+  white-space: nowrap;
+  transition: all $transition-base;
+
+  .tab-count {
+    @include flex-center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    background: $bg-primary;
+    border-radius: $radius-full;
+    font-size: $font-xs;
+    font-weight: $font-semibold;
+  }
+
+  &:hover {
+    border-color: $primary;
+    color: $primary;
+  }
+
+  &--active {
+    background: $dark;
+    border-color: $dark;
+    color: $white;
+
+    .tab-count {
+      background: rgba($white, 0.2);
+      color: $white;
+    }
+  }
+}
+
+// Bookings List
+.bookings-list {
+  @include flex-column;
+  gap: $spacing-3;
+}
+
+// Empty State
+.empty-bookings {
+  @include flex-column;
+  align-items: center;
+  padding: $spacing-10;
+  text-align: center;
+
+  i {
+    font-size: 3rem;
+    color: $text-muted;
+    margin-bottom: $spacing-3;
+  }
+
+  h3 {
+    font-size: $font-lg;
+    font-weight: $font-semibold;
+    color: $text-primary;
+    margin-bottom: $spacing-1;
+  }
+
+  p {
+    font-size: $font-sm;
+    color: $text-muted;
+  }
+}
+
+// Booking Card
+.booking-card {
+  padding: $spacing-4;
+  background: $white;
+  border: 1px solid $border-color;
+  border-radius: $radius-xl;
+  transition: all $transition-base;
+
+  &:hover {
+    box-shadow: $shadow-md;
+  }
+
+  &__header {
+    @include flex-between;
+    margin-bottom: $spacing-3;
+
+    .booking-id {
+      font-size: $font-sm;
+      font-weight: $font-semibold;
+      color: $text-muted;
+    }
+  }
+
+  &__user {
+    @include flex(row, flex-start, center, $spacing-3);
+    padding: $spacing-3;
+    margin-bottom: $spacing-3;
+    background: $bg-primary;
+    border-radius: $radius-lg;
+
+    .avatar {
+      @include flex-center;
+      width: 44px;
+      height: 44px;
+      border-radius: $radius-full;
+      font-size: $font-sm;
+      font-weight: $font-bold;
+      color: $white;
+      text-transform: uppercase;
+    }
+
+    .user-info {
+      h4 {
+        font-size: $font-base;
+        font-weight: $font-semibold;
+        color: $text-primary;
+      }
+
+      span {
+        font-size: $font-sm;
+        color: $text-muted;
+      }
+    }
+  }
+
+  &__services {
+    @include flex(row, flex-start, center, $spacing-3);
+    margin-bottom: $spacing-3;
+
+    .service-icons {
+      @include flex(row, flex-start, center, -$spacing-1);
+
+      .service-icon {
+        @include flex-center;
+        width: 36px;
+        height: 36px;
+        background: $bg-primary;
+        border: 2px solid $white;
+        border-radius: $radius-full;
+        font-size: $font-base;
+      }
+    }
+
+    .service-names {
+      flex: 1;
+      font-size: $font-sm;
+      font-weight: $font-medium;
+      color: $text-primary;
+    }
+  }
+
+  &__details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-2;
+    margin-bottom: $spacing-3;
+
+    .detail {
+      @include flex(row, flex-start, center, $spacing-2);
+      font-size: $font-sm;
+      color: $text-secondary;
+
+      i {
+        font-size: $font-base;
+        color: $text-muted;
+      }
+    }
+  }
+
+  &__notes {
+    @include flex(row, flex-start, center, $spacing-2);
+    padding: $spacing-2 $spacing-3;
+    margin-bottom: $spacing-3;
+    background: $bg-primary;
+    border-radius: $radius-md;
+    font-size: $font-sm;
+    color: $text-secondary;
+
+    i {
+      color: $text-muted;
+    }
+  }
+
+  &__actions {
+    @include flex(row, flex-end, center, $spacing-2);
+    padding-top: $spacing-3;
+    border-top: 1px solid $border-color;
+    flex-wrap: wrap;
+  }
+}
+
+// Status Badge (shared)
+.status {
+  padding: 4px 10px;
+  font-size: $font-xs;
+  font-weight: $font-semibold;
+  text-transform: capitalize;
+  border-radius: $radius-full;
+
+  &--pending {
+    background: #fef3c7;
+    color: #d97706;
+  }
+
+  &--confirmed {
+    background: #dbeafe;
+    color: #2563eb;
+  }
+
+  &--completed {
+    background: #d1fae5;
+    color: #059669;
+  }
+
+  &--cancelled {
+    background: $error-light;
+    color: $error;
+  }
+}
+
+// Modal
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba($black, 0.5);
+  @include flex-center;
+  z-index: $z-modal;
+  padding: $spacing-4;
+}
+
+.modal {
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  background: $white;
+  border-radius: $radius-xl;
+  overflow: hidden;
+  animation: slideUp 0.3s ease;
+
+  &__header {
+    @include flex-between;
+    padding: $spacing-4;
+    border-bottom: 1px solid $border-color;
+
+    h3 {
+      font-size: $font-lg;
+      font-weight: $font-semibold;
+    }
+
+    .close-btn {
+      @include flex-center;
+      width: 36px;
+      height: 36px;
+      background: $bg-primary;
+      border-radius: $radius-full;
+      font-size: $font-lg;
+      color: $text-muted;
+      transition: all $transition-base;
+
+      &:hover {
+        background: $border-color;
+        color: $text-primary;
+      }
+    }
+  }
+
+  &__body {
+    padding: $spacing-4;
+    max-height: 50vh;
+    overflow-y: auto;
+
+    .form-group {
+      margin-bottom: $spacing-4;
+
+      label {
+        display: block;
+        font-size: $font-sm;
+        font-weight: $font-medium;
+        color: $text-primary;
+        margin-bottom: $spacing-2;
+      }
+
+      input[type="date"] {
+        width: 100%;
+        padding: $spacing-3;
+        border: 1.5px solid $border-color;
+        border-radius: $radius-lg;
+        font-size: $font-base;
+
+        &:focus {
+          border-color: $primary;
+          outline: none;
+        }
+      }
+    }
+
+    .time-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: $spacing-2;
+    }
+
+    .time-option {
+      padding: $spacing-2;
+      background: $white;
+      border: 1.5px solid $border-color;
+      border-radius: $radius-md;
+      font-size: $font-sm;
+      font-weight: $font-medium;
+      text-align: center;
+      transition: all $transition-base;
+
+      &:hover {
+        border-color: $primary;
+      }
+
+      &--selected {
+        background: $dark;
+        border-color: $dark;
+        color: $white;
+      }
+    }
+  }
+
+  &__footer {
+    @include flex(row, flex-end, center, $spacing-3);
+    padding: $spacing-4;
+    border-top: 1px solid $border-color;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

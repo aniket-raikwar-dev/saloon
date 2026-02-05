@@ -1,0 +1,95 @@
+// ===========================================
+// Tabs Component Styles
+// ===========================================
+
+@use '../abstracts' as *;
+
+// Toggle Tabs (Behance style)
+.toggle-tabs {
+  @include flex(row, flex-start, center, $spacing-2);
+  padding: 4px;
+  background: $white;
+  border-radius: $radius-full;
+  border: 1.5px solid $border-color;
+  
+  &__btn {
+    @include flex-center;
+    gap: $spacing-2;
+    padding: $spacing-2 $spacing-4;
+    border-radius: $radius-full;
+    font-size: $font-sm;
+    font-weight: $font-medium;
+    color: $text-secondary;
+    background: transparent;
+    transition: all $transition-base;
+    
+    i {
+      font-size: $font-base;
+    }
+    
+    &:hover:not(.toggle-tabs__btn--active) {
+      color: $text-primary;
+      background: $bg-primary;
+    }
+    
+    &--active {
+      background: $dark;
+      color: $white;
+    }
+  }
+}
+
+// Pill Tabs
+.pill-tabs {
+  @include flex(row, flex-start, center, $spacing-2);
+  @include scrollbar-hidden;
+  overflow-x: auto;
+  padding-bottom: $spacing-2;
+  
+  &__btn {
+    padding: $spacing-2 $spacing-4;
+    background: $white;
+    border: 1.5px solid $border-color;
+    border-radius: $radius-full;
+    font-size: $font-sm;
+    font-weight: $font-medium;
+    color: $text-secondary;
+    white-space: nowrap;
+    transition: all $transition-base;
+    
+    &:hover:not(.pill-tabs__btn--active) {
+      border-color: $primary;
+      color: $primary;
+    }
+    
+    &--active {
+      background: $primary;
+      border-color: $primary;
+      color: $white;
+    }
+  }
+}
+
+// Segment Tabs
+.segment-tabs {
+  @include flex;
+  padding: 4px;
+  background: $bg-primary;
+  border-radius: $radius-lg;
+  
+  &__btn {
+    flex: 1;
+    padding: $spacing-3 $spacing-4;
+    font-size: $font-sm;
+    font-weight: $font-medium;
+    color: $text-secondary;
+    background: transparent;
+    border-radius: $radius-md;
+    transition: all $transition-base;
+    
+    &--active {
+      background: $dark;
+      color: $white;
+    }
+  }
+}

@@ -1,0 +1,188 @@
+// ===========================================
+// Header Layout Styles
+// ===========================================
+
+@use '../abstracts' as *;
+
+.app-header {
+  @include flex-between;
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+  padding: $spacing-3 $spacing-4;
+  background: $white;
+  border-bottom: 1px solid $border-color;
+  
+  &__left {
+    @include flex(row, flex-start, center, $spacing-3);
+  }
+  
+  &__logo {
+    font-family: $font-heading;
+    font-size: $font-xl;
+    font-weight: $font-bold;
+    color: $primary;
+  }
+  
+  &__right {
+    @include flex(row, flex-start, center, $spacing-2);
+  }
+}
+
+// Notification
+.notification {
+  position: relative;
+  
+  &__btn {
+    @include icon-button;
+  }
+  
+  &__badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    @include flex-center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    background: $primary;
+    color: $white;
+    font-size: $font-xs;
+    font-weight: $font-semibold;
+    border-radius: $radius-full;
+  }
+  
+  &__dropdown {
+    position: absolute;
+    top: calc(100% + $spacing-2);
+    right: 0;
+    width: 340px;
+    background: $white;
+    border-radius: $radius-xl;
+    box-shadow: $shadow-xl;
+    z-index: $z-dropdown;
+    overflow: hidden;
+    @include slide-down;
+    
+    @include mobile {
+      width: 300px;
+      right: -$spacing-2;
+    }
+  }
+  
+  &__header {
+    @include flex-between;
+    padding: $spacing-4;
+    border-bottom: 1px solid $border-color;
+    
+    h3 {
+      font-size: $font-base;
+      font-weight: $font-semibold;
+      color: $text-primary;
+    }
+    
+    button {
+      font-size: $font-sm;
+      color: $primary;
+      font-weight: $font-medium;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  &__list {
+    max-height: 320px;
+    overflow-y: auto;
+    @include scrollbar-thin;
+  }
+  
+  &__item {
+    @include flex(row, flex-start, flex-start, $spacing-3);
+    padding: $spacing-3 $spacing-4;
+    border-bottom: 1px solid $border-light;
+    cursor: pointer;
+    transition: background $transition-fast;
+    
+    &:hover {
+      background: $bg-primary;
+    }
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    &--unread {
+      background: $primary-light;
+      
+      &:hover {
+        background: #dde8ff;
+      }
+    }
+  }
+  
+  &__icon {
+    @include flex-center;
+    width: 40px;
+    height: 40px;
+    background: $accent;
+    border-radius: $radius-lg;
+    flex-shrink: 0;
+    
+    i {
+      font-size: $font-lg;
+      color: $dark;
+    }
+  }
+  
+  &__content {
+    flex: 1;
+    min-width: 0;
+    
+    h4 {
+      font-size: $font-sm;
+      font-weight: $font-semibold;
+      color: $text-primary;
+      margin-bottom: 2px;
+    }
+    
+    p {
+      @include line-clamp(2);
+      font-size: $font-sm;
+      color: $text-secondary;
+      line-height: $leading-normal;
+      margin-bottom: 4px;
+    }
+    
+    span {
+      font-size: $font-xs;
+      color: $text-muted;
+    }
+  }
+  
+  &__footer {
+    padding: $spacing-3 $spacing-4;
+    background: $bg-primary;
+    text-align: center;
+    
+    button {
+      font-size: $font-sm;
+      font-weight: $font-medium;
+      color: $primary;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: $z-dropdown - 1;
+  }
+}

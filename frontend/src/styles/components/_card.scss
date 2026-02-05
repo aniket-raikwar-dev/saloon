@@ -1,0 +1,201 @@
+// ===========================================
+// Card Component Styles
+// ===========================================
+
+@use '../abstracts' as *;
+
+.card {
+  @include card;
+  
+  &--flat {
+    box-shadow: none;
+    border: 1px solid $border-color;
+  }
+  
+  &--hover {
+    @include card-hover;
+  }
+  
+  &--selected {
+    border: 2px solid $primary;
+    background: $primary-light;
+  }
+  
+  &__header {
+    @include flex-between;
+    margin-bottom: $spacing-3;
+  }
+  
+  &__title {
+    @include heading($font-md);
+  }
+  
+  &__body {
+    @include body-text;
+  }
+  
+  &__footer {
+    @include flex-between;
+    margin-top: $spacing-3;
+    padding-top: $spacing-3;
+    border-top: 1px solid $border-color;
+  }
+}
+
+// Service Card
+.service-card {
+  @include flex(row, flex-start, center, $spacing-3);
+  @include card;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all $transition-base;
+  
+  &:hover {
+    border-color: $border-color;
+  }
+  
+  &--selected {
+    border-color: $primary;
+    background: $primary-light;
+  }
+  
+  &__icon {
+    @include flex-center;
+    width: 48px;
+    height: 48px;
+    background: $bg-primary;
+    border-radius: $radius-lg;
+    font-size: $font-2xl;
+    flex-shrink: 0;
+    
+    .service-card--selected & {
+      background: $white;
+    }
+  }
+  
+  &__content {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  &__name {
+    font-size: $font-base;
+    font-weight: $font-semibold;
+    color: $text-primary;
+    margin-bottom: $spacing-1;
+  }
+  
+  &__meta {
+    @include flex(row, flex-start, center, $spacing-3);
+    font-size: $font-sm;
+    color: $text-muted;
+    
+    i {
+      font-size: $font-base;
+    }
+  }
+  
+  &__right {
+    @include flex-column;
+    align-items: flex-end;
+    gap: $spacing-2;
+  }
+  
+  &__price {
+    font-size: $font-base;
+    font-weight: $font-semibold;
+    color: $primary;
+  }
+  
+  &__checkbox {
+    @include flex-center;
+    width: 22px;
+    height: 22px;
+    border: 2px solid $border-color;
+    border-radius: $radius-sm;
+    transition: all $transition-base;
+    
+    &--checked {
+      background: $primary;
+      border-color: $primary;
+      color: $white;
+    }
+  }
+}
+
+// Booking Card
+.booking-card {
+  @include card;
+  
+  &__header {
+    @include flex-between;
+    margin-bottom: $spacing-3;
+  }
+  
+  &__service {
+    h4 {
+      font-size: $font-md;
+      font-weight: $font-semibold;
+      color: $text-primary;
+      margin-bottom: $spacing-1;
+    }
+  }
+  
+  &__price {
+    font-size: $font-md;
+    font-weight: $font-semibold;
+    color: $primary;
+  }
+  
+  &__details {
+    @include flex(row, flex-start, center, $spacing-3);
+    flex-wrap: wrap;
+    padding: $spacing-3 0;
+    border-top: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
+    margin-bottom: $spacing-3;
+  }
+  
+  &__detail {
+    @include flex(row, flex-start, center, $spacing-1);
+    font-size: $font-sm;
+    color: $text-secondary;
+    
+    i {
+      color: $text-muted;
+    }
+  }
+  
+  &__actions {
+    @include flex(row, flex-start, center, $spacing-2);
+    
+    .btn {
+      flex: 1;
+    }
+  }
+}
+
+// Status Badge
+.status {
+  @include badge;
+  
+  &--confirmed {
+    background: $success-light;
+    color: $success;
+  }
+  
+  &--pending {
+    background: $warning-light;
+    color: $warning;
+  }
+  
+  &--completed {
+    background: $primary-light;
+    color: $primary;
+  }
+  
+  &--cancelled {
+    background: $error-light;
+    color: $error;
+  }
+}

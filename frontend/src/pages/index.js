@@ -1,0 +1,6 @@
+export { default as Login } from './Login'
+export { default as Home } from './Home'
+export { default as Services } from './Services'
+export { default as Booking } from './Booking'
+export { default as BookingConfirm } from './BookingConfirm'
+export { default as Profile } from './Profile'

@@ -1,0 +1,581 @@
+// ===========================================
+// Admin Dashboard Styles
+// ===========================================
+
+@use '../abstracts' as *;
+
+.admin-dashboard {
+  @include flex-column;
+  gap: $spacing-5;
+}
+
+// Welcome Section
+.dashboard-welcome {
+  @include flex-between;
+  padding: $spacing-4;
+  background: linear-gradient(135deg, $dark 0%, lighten($dark, 10%) 100%);
+  border-radius: $radius-xl;
+  color: $white;
+
+  .welcome-content {
+    @include flex-column;
+    gap: $spacing-1;
+  }
+
+  .welcome-greeting {
+    font-size: $font-sm;
+    opacity: 0.8;
+  }
+
+  .welcome-name {
+    font-size: $font-2xl;
+    font-weight: $font-bold;
+  }
+
+  .welcome-role {
+    font-size: $font-sm;
+    opacity: 0.7;
+  }
+
+  .welcome-avatar {
+    @include flex-center;
+    width: 60px;
+    height: 60px;
+    border-radius: $radius-full;
+    font-size: 1.25rem;
+    font-weight: $font-bold;
+    color: $white;
+    text-transform: uppercase;
+    border: 2px solid rgba($white, 0.3);
+  }
+}
+
+// Stats Section
+.stats-section {
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-3;
+  }
+}
+
+.stat-card {
+  @include flex(row, flex-start, center, $spacing-3);
+  padding: $spacing-4;
+  background: $white;
+  border-radius: $radius-xl;
+  border: 1px solid $border-color;
+
+  &__icon {
+    @include flex-center;
+    width: 48px;
+    height: 48px;
+    border-radius: $radius-lg;
+    font-size: $font-xl;
+  }
+
+  &__content {
+    @include flex-column;
+    gap: 2px;
+  }
+
+  &__value {
+    font-size: $font-xl;
+    font-weight: $font-bold;
+    color: $text-primary;
+  }
+
+  &__label {
+    font-size: $font-xs;
+    color: $text-muted;
+  }
+
+  &--primary .stat-card__icon {
+    background: $primary-light;
+    color: $primary;
+  }
+
+  &--warning .stat-card__icon {
+    background: #fef3c7;
+    color: #d97706;
+  }
+
+  &--success .stat-card__icon {
+    background: #d1fae5;
+    color: #059669;
+  }
+
+  &--info .stat-card__icon {
+    background: #dbeafe;
+    color: #2563eb;
+  }
+}
+
+// Section Styles
+.section-header {
+  @include flex-between;
+  margin-bottom: $spacing-3;
+
+  .section-title {
+    font-size: $font-lg;
+    font-weight: $font-semibold;
+    color: $text-primary;
+  }
+
+  .pending-count {
+    @include flex-center;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 $spacing-2;
+    background: #fef3c7;
+    color: #d97706;
+    font-size: $font-xs;
+    font-weight: $font-bold;
+    border-radius: $radius-full;
+  }
+
+  .today-date {
+    font-size: $font-sm;
+    color: $text-muted;
+  }
+
+  .see-all-btn {
+    @include flex(row, center, center, $spacing-1);
+    font-size: $font-sm;
+    font-weight: $font-medium;
+    color: $primary;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Pending Section
+.pending-section {
+  .pending-list {
+    @include flex-column;
+    gap: $spacing-3;
+  }
+
+  .view-all-btn {
+    @include flex(row, center, center, $spacing-2);
+    width: 100%;
+    padding: $spacing-3;
+    margin-top: $spacing-3;
+    background: $bg-primary;
+    border-radius: $radius-lg;
+    font-size: $font-sm;
+    font-weight: $font-medium;
+    color: $text-secondary;
+    transition: all $transition-base;
+
+    &:hover {
+      background: $border-color;
+      color: $text-primary;
+    }
+  }
+}
+
+.pending-card {
+  padding: $spacing-4;
+  background: $white;
+  border: 1px solid $border-color;
+  border-radius: $radius-xl;
+
+  &__header {
+    @include flex-between;
+    margin-bottom: $spacing-3;
+  }
+
+  &__user {
+    @include flex(row, flex-start, center, $spacing-3);
+
+    .avatar {
+      @include flex-center;
+      width: 44px;
+      height: 44px;
+      border-radius: $radius-full;
+      font-size: $font-sm;
+      font-weight: $font-bold;
+      color: $white;
+      text-transform: uppercase;
+    }
+
+    .info {
+      h4 {
+        font-size: $font-base;
+        font-weight: $font-semibold;
+        color: $text-primary;
+      }
+
+      span {
+        font-size: $font-sm;
+        color: $text-muted;
+      }
+    }
+  }
+
+  &__details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-2;
+    margin-bottom: $spacing-3;
+
+    .detail {
+      @include flex(row, flex-start, center, $spacing-2);
+      font-size: $font-sm;
+      color: $text-secondary;
+
+      i {
+        font-size: $font-base;
+        color: $text-muted;
+      }
+    }
+  }
+
+  &__actions {
+    @include flex(row, flex-end, center, $spacing-2);
+    padding-top: $spacing-3;
+    border-top: 1px solid $border-color;
+  }
+}
+
+.action-btn {
+  @include flex(row, center, center, $spacing-1);
+  padding: $spacing-2 $spacing-4;
+  border-radius: $radius-full;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  transition: all $transition-base;
+
+  &--confirm {
+    background: $dark;
+    color: $white;
+
+    &:hover {
+      background: $primary;
+    }
+  }
+
+  &--cancel {
+    background: $bg-primary;
+    color: $text-secondary;
+
+    &:hover {
+      background: $error-light;
+      color: $error;
+    }
+  }
+}
+
+// Today Section
+.today-section {
+  .today-list {
+    @include flex-column;
+    gap: $spacing-2;
+  }
+
+  .empty-today {
+    @include flex-column;
+    align-items: center;
+    padding: $spacing-6;
+    background: $white;
+    border: 1px dashed $border-color;
+    border-radius: $radius-xl;
+    text-align: center;
+
+    i {
+      font-size: 2.5rem;
+      color: $text-muted;
+      margin-bottom: $spacing-2;
+    }
+
+    p {
+      color: $text-secondary;
+    }
+  }
+}
+
+.today-card {
+  @include flex(row, flex-start, center, $spacing-3);
+  padding: $spacing-3;
+  background: $white;
+  border: 1px solid $border-color;
+  border-radius: $radius-lg;
+
+  &__time {
+    @include flex-center;
+    min-width: 70px;
+    padding: $spacing-2;
+    background: $bg-primary;
+    border-radius: $radius-md;
+    font-size: $font-sm;
+    font-weight: $font-semibold;
+    color: $dark;
+  }
+
+  &__content {
+    flex: 1;
+    @include flex-between;
+  }
+
+  &__user {
+    @include flex(row, flex-start, center, $spacing-2);
+
+    .avatar {
+      @include flex-center;
+      width: 36px;
+      height: 36px;
+      border-radius: $radius-full;
+      font-size: $font-xs;
+      font-weight: $font-bold;
+      color: $white;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .info {
+      h4 {
+        font-size: $font-sm;
+        font-weight: $font-semibold;
+        color: $text-primary;
+      }
+
+      span {
+        font-size: $font-xs;
+        color: $text-muted;
+      }
+    }
+  }
+}
+
+// Upcoming Section
+.upcoming-section {
+  .upcoming-list {
+    @include flex-column;
+    gap: $spacing-2;
+  }
+}
+
+.upcoming-card {
+  @include flex-between;
+  align-items: center;
+  padding: $spacing-4;
+  background: $white;
+  border: 1px solid $border-color;
+  border-radius: $radius-xl;
+  gap: $spacing-3;
+
+  &__left {
+    @include flex(row, flex-start, center, $spacing-3);
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__avatar {
+    @include flex-center;
+    width: 44px;
+    height: 44px;
+    border-radius: $radius-full;
+    font-size: $font-sm;
+    font-weight: $font-bold;
+    color: $white;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  &__info {
+    flex: 1;
+    min-width: 0;
+
+    h4 {
+      font-size: $font-base;
+      font-weight: $font-semibold;
+      color: $text-primary;
+      margin-bottom: 2px;
+      @include text-truncate;
+    }
+
+    p {
+      font-size: $font-xs;
+      color: $text-muted;
+      @include text-truncate;
+    }
+  }
+
+  &__right {
+    @include flex-column;
+    align-items: flex-end;
+    gap: $spacing-2;
+    flex-shrink: 0;
+  }
+
+  &__datetime {
+    @include flex(row, flex-end, center, $spacing-2);
+    
+    .date {
+      font-size: $font-xs;
+      font-weight: $font-medium;
+      color: $text-secondary;
+    }
+
+    .time {
+      font-size: $font-xs;
+      color: $text-muted;
+    }
+  }
+
+  &__status {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: $font-semibold;
+    border-radius: $radius-full;
+    text-transform: capitalize;
+
+    &.status--confirmed {
+      background: rgba($primary, 0.1);
+      color: $primary;
+    }
+
+    &.status--pending {
+      background: rgba(#f59e0b, 0.1);
+      color: #d97706;
+    }
+
+    &.status--completed {
+      background: rgba(#10b981, 0.1);
+      color: #059669;
+    }
+
+    &.status--cancelled {
+      background: rgba(#ef4444, 0.1);
+      color: #dc2626;
+    }
+  }
+}
+
+// Quick Actions Section
+.quick-actions-section {
+  .section-title {
+    font-size: $font-lg;
+    font-weight: $font-semibold;
+    color: $text-primary;
+    margin-bottom: $spacing-4;
+  }
+}
+
+.quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-3;
+}
+
+.quick-action-card {
+  @include flex-column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-4 $spacing-3;
+  background: $white;
+  border: 1px solid $border-color;
+  border-radius: $radius-xl;
+  transition: all $transition-base;
+  text-align: center;
+  gap: $spacing-2;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba($dark, 0.08);
+  }
+
+  &__icon {
+    @include flex-center;
+    width: 44px;
+    height: 44px;
+    border-radius: $radius-lg;
+    font-size: $font-xl;
+  }
+
+  &__content {
+    @include flex-column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  &__title {
+    font-size: $font-sm;
+    font-weight: $font-semibold;
+    color: $text-primary;
+  }
+
+  &__desc {
+    font-size: 10px;
+    color: $text-muted;
+    line-height: 1.3;
+  }
+
+  // Variants
+  &--primary {
+    .quick-action-card__icon {
+      background: $primary-light;
+      color: $primary;
+    }
+
+    &:hover {
+      border-color: $primary;
+    }
+  }
+
+  &--accent {
+    .quick-action-card__icon {
+      background: #fef3c7;
+      color: #d97706;
+    }
+
+    &:hover {
+      border-color: #d97706;
+    }
+  }
+
+  &--secondary {
+    .quick-action-card__icon {
+      background: $bg-primary;
+      color: $dark;
+    }
+
+    &:hover {
+      border-color: $dark;
+    }
+  }
+}
+
+// Status Badges
+.status {
+  padding: 4px 10px;
+  font-size: $font-xs;
+  font-weight: $font-semibold;
+  text-transform: capitalize;
+  border-radius: $radius-full;
+
+  &--pending {
+    background: #fef3c7;
+    color: #d97706;
+  }
+
+  &--confirmed {
+    background: #dbeafe;
+    color: #2563eb;
+  }
+
+  &--completed {
+    background: #d1fae5;
+    color: #059669;
+  }
+
+  &--cancelled {
+    background: $error-light;
+    color: $error;
+  }
+}

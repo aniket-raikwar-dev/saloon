@@ -1,0 +1,90 @@
+// ===========================================
+// Input Component Styles
+// ===========================================
+
+@use '../abstracts' as *;
+
+.input-group {
+  @include flex-column;
+  gap: $spacing-2;
+  
+  &__label {
+    font-size: $font-sm;
+    font-weight: $font-medium;
+    color: $text-primary;
+  }
+  
+  &__input {
+    @include input-base;
+  }
+  
+  &__error {
+    font-size: $font-xs;
+    color: $error;
+  }
+  
+  &__hint {
+    font-size: $font-xs;
+    color: $text-muted;
+  }
+}
+
+// Search Input
+.search-bar {
+  @include flex(row, flex-start, center, $spacing-3);
+  padding: $spacing-3 $spacing-4;
+  background: $white;
+  border: 1.5px solid $border-color;
+  border-radius: $radius-full;
+  transition: all $transition-base;
+  
+  &:focus-within {
+    border-color: $primary;
+    box-shadow: 0 0 0 3px $primary-light;
+  }
+  
+  &__icon {
+    font-size: $font-lg;
+    color: $text-muted;
+  }
+  
+  &__input {
+    flex: 1;
+    background: transparent;
+    font-size: $font-base;
+    color: $text-primary;
+    
+    &::placeholder {
+      color: $text-muted;
+    }
+  }
+  
+  &__action {
+    @include icon-button(36px);
+    background: $primary;
+    color: $white;
+    border-radius: $radius-md;
+    
+    &:hover {
+      background: $primary-hover;
+    }
+  }
+}
+
+// Checkbox
+.checkbox {
+  @include flex(row, flex-start, center, $spacing-2);
+  cursor: pointer;
+  
+  &__input {
+    width: 18px;
+    height: 18px;
+    accent-color: $primary;
+    cursor: pointer;
+  }
+  
+  &__label {
+    font-size: $font-sm;
+    color: $text-secondary;
+  }
+}

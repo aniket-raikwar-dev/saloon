@@ -1,0 +1,745 @@
+// ===========================================
+// Booking Confirm Page Styles (Behance-inspired)
+// ===========================================
+
+@use '../abstracts' as *;
+
+.booking-confirm {
+  @include flex-column;
+  min-height: 100vh;
+  background: $bg-primary;
+  
+  &__header {
+    @include flex(row, space-between, center);
+    position: sticky;
+    top: 0;
+    z-index: $z-sticky;
+    padding: $spacing-4;
+    background: $white;
+    border-bottom: 1px solid $border-color;
+    
+    h1 {
+      @include heading($font-lg);
+    }
+    
+    .back-btn {
+      @include icon-button(40px);
+      background: $bg-primary;
+      border: 1px solid $border-color;
+      
+      &:hover {
+        background: $border-color;
+      }
+    }
+    
+    .step-indicator {
+      @include flex-center;
+      padding: $spacing-1 $spacing-3;
+      background: $dark;
+      color: $white;
+      font-size: $font-sm;
+      font-weight: $font-semibold;
+      border-radius: $radius-full;
+    }
+  }
+  
+  &__footer {
+    @include flex(row, flex-end, center, $spacing-3);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: $spacing-4;
+    background: $white;
+    border-top: 1px solid $border-color;
+    box-shadow: 0 -4px 20px rgba($black, 0.05);
+    
+    .btn {
+      flex: 1;
+      max-width: 200px;
+      
+      &:only-child {
+        max-width: 100%;
+      }
+    }
+    
+    @include mobile {
+      .btn {
+        max-width: none;
+      }
+    }
+  }
+}
+
+// Progress Steps
+.progress-steps {
+  @include flex(row, center, center, $spacing-2);
+  padding: $spacing-4;
+  background: $white;
+}
+
+.progress-step {
+  @include flex-column;
+  align-items: center;
+  gap: $spacing-1;
+  
+  &__circle {
+    @include flex-center;
+    width: 36px;
+    height: 36px;
+    background: $bg-primary;
+    border: 2px solid $border-color;
+    border-radius: $radius-full;
+    font-size: $font-sm;
+    font-weight: $font-semibold;
+    color: $text-muted;
+    transition: all $transition-base;
+  }
+  
+  span:not(.progress-step__circle) {
+    font-size: $font-xs;
+    font-weight: $font-medium;
+    color: $text-muted;
+  }
+  
+  &--active {
+    .progress-step__circle {
+      background: $primary;
+      border-color: $primary;
+      color: $white;
+    }
+    
+    span:not(.progress-step__circle) {
+      color: $primary;
+    }
+  }
+  
+  &--completed {
+    .progress-step__circle {
+      background: $dark;
+      border-color: $dark;
+      color: $white;
+    }
+  }
+  
+  &__line {
+    width: 40px;
+    height: 2px;
+    background: $border-color;
+    margin: 0 $spacing-1;
+    margin-bottom: $spacing-4;
+  }
+}
+
+// Booking Step
+.booking-step {
+  @include flex-column;
+  gap: $spacing-5;
+  padding: $spacing-4;
+  padding-bottom: 120px;
+}
+
+.step-header {
+  @include flex-between;
+  
+  &__title {
+    @include flex(row, flex-start, center, $spacing-2);
+    
+    h2 {
+      @include heading($font-lg);
+    }
+    
+    .count-badge {
+      @include flex-center;
+      min-width: 24px;
+      height: 24px;
+      padding: 0 $spacing-2;
+      background: $dark;
+      color: $white;
+      font-size: $font-xs;
+      font-weight: $font-semibold;
+      border-radius: $radius-full;
+    }
+  }
+  
+  h2 {
+    @include heading($font-lg);
+  }
+  
+  .add-more-btn {
+    @include flex(row, flex-start, center, $spacing-1);
+    padding: $spacing-2 $spacing-4;
+    background: $white;
+    border: 1.5px solid $border-color;
+    color: $text-primary;
+    border-radius: $radius-full;
+    font-size: $font-sm;
+    font-weight: $font-medium;
+    transition: all $transition-base;
+    
+    i {
+      font-size: $font-base;
+    }
+    
+    &:hover {
+      background: $dark;
+      border-color: $dark;
+      color: $white;
+    }
+  }
+}
+
+// Selection Section
+.selection-section {
+  @include flex-column;
+  gap: $spacing-4;
+  padding: $spacing-4;
+  background: $white;
+  border-radius: $radius-xl;
+  border: 1px solid $border-color;
+}
+
+.selection-header {
+  @include flex(row, flex-start, flex-start, $spacing-3);
+  
+  &__icon {
+    @include flex-center;
+    width: 44px;
+    height: 44px;
+    background: $bg-primary;
+    border-radius: $radius-lg;
+    flex-shrink: 0;
+    
+    i {
+      font-size: $font-xl;
+      color: $dark;
+    }
+  }
+  
+  &__text {
+    h2 {
+      font-size: $font-lg;
+      font-weight: $font-semibold;
+      color: $text-primary;
+      margin-bottom: 2px;
+    }
+    
+    p {
+      font-size: $font-sm;
+      color: $text-muted;
+    }
+  }
+}
+
+.selection-confirm {
+  @include flex(row, flex-start, center, $spacing-2);
+  padding: $spacing-3;
+  background: $bg-primary;
+  border: 1.5px solid $dark;
+  border-radius: $radius-lg;
+  
+  i {
+    font-size: $font-lg;
+    color: $dark;
+  }
+  
+  span {
+    font-size: $font-sm;
+    font-weight: $font-semibold;
+    color: $dark;
+  }
+}
+
+// Empty Services
+.empty-services {
+  @include flex-column;
+  align-items: center;
+  padding: $spacing-10 $spacing-4;
+  text-align: center;
+  
+  &__icon {
+    @include flex-center;
+    width: 80px;
+    height: 80px;
+    background: $bg-primary;
+    border-radius: 50%;
+    margin-bottom: $spacing-4;
+    
+    i {
+      font-size: 2rem;
+      color: $text-muted;
+    }
+  }
+  
+  p {
+    color: $text-secondary;
+    margin-bottom: $spacing-4;
+  }
+}
+
+// Service Summary Card
+.services-summary {
+  @include flex-column;
+  gap: $spacing-3;
+}
+
+.service-summary-card {
+  @include flex(row, flex-start, center, $spacing-3);
+  padding: $spacing-3;
+  background: $white;
+  border: 1.5px solid $border-color;
+  border-radius: $radius-xl;
+  transition: all $transition-base;
+  
+  &:hover {
+    border-color: $primary;
+  }
+  
+  &__icon {
+    @include flex-center;
+    width: 48px;
+    height: 48px;
+    background: $bg-primary;
+    border-radius: $radius-lg;
+    font-size: $font-2xl;
+    flex-shrink: 0;
+  }
+  
+  &__content {
+    flex: 1;
+    min-width: 0;
+    
+    h4 {
+      font-size: $font-base;
+      font-weight: $font-semibold;
+      color: $text-primary;
+      margin-bottom: 4px;
+    }
+    
+    .duration {
+      @include flex(row, flex-start, center, $spacing-1);
+      font-size: $font-sm;
+      color: $text-muted;
+      
+      i {
+        font-size: $font-base;
+      }
+    }
+  }
+  
+  &__right {
+    @include flex-column;
+    align-items: flex-end;
+    gap: $spacing-2;
+  }
+  
+  .price {
+    font-size: $font-base;
+    font-weight: $font-bold;
+    color: $text-primary;
+  }
+  
+  .remove-btn {
+    @include flex-center;
+    width: 28px;
+    height: 28px;
+    background: $bg-primary;
+    color: $text-muted;
+    border-radius: $radius-full;
+    font-size: $font-base;
+    transition: all $transition-base;
+    
+    &:hover {
+      background: $error-light;
+      color: $error;
+    }
+  }
+}
+
+// Booking Summary Card
+.booking-summary-card {
+  padding: $spacing-4;
+  background: $bg-primary;
+  border-radius: $radius-xl;
+  
+  .summary-row {
+    @include flex-between;
+    padding: $spacing-2 0;
+    font-size: $font-sm;
+    color: $text-secondary;
+    
+    &:not(:last-child) {
+      border-bottom: 1px dashed $border-color;
+    }
+    
+    &.total {
+      padding-top: $spacing-3;
+      font-size: $font-md;
+      font-weight: $font-semibold;
+      color: $text-primary;
+      border-bottom: none;
+      
+      span:last-child {
+        color: $dark;
+        font-size: $font-lg;
+        font-weight: $font-bold;
+      }
+    }
+  }
+}
+
+// Date Picker
+.date-picker {
+  margin: 0 (-$spacing-4);
+  padding: 0 $spacing-4;
+  
+  &__scroll {
+    @include flex(row, flex-start, stretch, $spacing-2);
+    overflow-x: auto;
+    padding: $spacing-2 0;
+    @include scrollbar-hidden;
+  }
+}
+
+.date-card {
+  @include flex-column;
+  align-items: center;
+  gap: $spacing-1;
+  position: relative;
+  min-width: 72px;
+  padding: $spacing-3 $spacing-2;
+  background: $white;
+  border: 2px solid $border-color;
+  border-radius: $radius-xl;
+  cursor: pointer;
+  transition: all $transition-base;
+  
+  &__day {
+    font-size: 11px;
+    font-weight: $font-semibold;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  &__num {
+    font-family: $font-heading;
+    font-size: $font-2xl;
+    font-weight: $font-bold;
+    color: $text-primary;
+    line-height: 1;
+  }
+  
+  &__month {
+    font-size: $font-xs;
+    color: $text-muted;
+  }
+  
+  &__badge {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 2px 8px;
+    background: $dark;
+    color: $white;
+    font-size: 9px;
+    font-weight: $font-bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: $radius-full;
+  }
+  
+  &--today {
+    border-color: $dark;
+    
+    .date-card__day {
+      color: $dark;
+    }
+  }
+  
+  &--selected {
+    background: $dark;
+    border-color: $dark;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba($dark, 0.3);
+    
+    .date-card__day,
+    .date-card__num,
+    .date-card__month {
+      color: $white;
+    }
+    
+    .date-card__badge {
+      background: $white;
+      color: $dark;
+    }
+  }
+  
+  &:hover:not(.date-card--selected) {
+    border-color: $dark;
+    transform: translateY(-2px);
+  }
+}
+
+// Time Section
+.time-section {
+  @include flex-column;
+  gap: $spacing-3;
+  
+  &__header {
+    @include flex(row, flex-start, center, $spacing-2);
+    padding: $spacing-2 0;
+    
+    i {
+      font-size: $font-lg;
+      color: $text-muted;
+    }
+    
+    span {
+      font-size: $font-sm;
+      font-weight: $font-medium;
+      color: $text-secondary;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+}
+
+// Time Slots Grid
+.time-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-2;
+}
+
+.time-slot {
+  @include flex-column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  position: relative;
+  padding: $spacing-3;
+  background: $white;
+  border: 2px solid $border-color;
+  border-radius: $radius-lg;
+  cursor: pointer;
+  transition: all $transition-base;
+  
+  &__time {
+    font-size: $font-sm;
+    font-weight: $font-semibold;
+    color: $text-primary;
+  }
+  
+  &__status {
+    font-size: 10px;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  &__check {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    font-size: $font-sm;
+    color: $white;
+  }
+  
+  &:hover:not(.time-slot--selected):not(.time-slot--disabled) {
+    border-color: $dark;
+    
+    .time-slot__time {
+      color: $dark;
+    }
+  }
+  
+  &--selected {
+    background: $dark;
+    border-color: $dark;
+    
+    .time-slot__time {
+      color: $white;
+    }
+  }
+  
+  &--disabled {
+    background: $bg-primary;
+    border-color: transparent;
+    cursor: not-allowed;
+    opacity: 0.6;
+    
+    .time-slot__time {
+      color: $text-muted;
+    }
+    
+    .time-slot__status {
+      color: $error;
+    }
+  }
+}
+
+// Contact Form
+.contact-form {
+  @include flex-column;
+  gap: $spacing-4;
+}
+
+.form-group {
+  @include flex-column;
+  gap: $spacing-2;
+  
+  label {
+    font-size: $font-sm;
+    font-weight: $font-medium;
+    color: $text-primary;
+    
+    .required {
+      color: $error;
+    }
+  }
+}
+
+.input-field {
+  @include flex(row, flex-start, center, $spacing-3);
+  padding: $spacing-3 $spacing-4;
+  background: $bg-primary;
+  border: 2px solid transparent;
+  border-radius: $radius-lg;
+  transition: all $transition-base;
+  
+  &:focus-within {
+    background: $white;
+    border-color: $dark;
+  }
+  
+  i {
+    font-size: $font-lg;
+    color: $text-muted;
+    flex-shrink: 0;
+  }
+  
+  input, textarea {
+    flex: 1;
+    font-size: $font-base;
+    color: $text-primary;
+    background: transparent;
+    
+    &::placeholder {
+      color: $text-muted;
+    }
+  }
+  
+  textarea {
+    resize: none;
+    line-height: $leading-normal;
+  }
+  
+  &--textarea {
+    align-items: flex-start;
+    
+    i {
+      margin-top: 2px;
+    }
+  }
+}
+
+// Final Summary
+.final-summary {
+  padding: $spacing-4;
+  background: $white;
+  border: 1.5px solid $border-color;
+  border-radius: $radius-xl;
+  
+  h3 {
+    @include flex(row, flex-start, center, $spacing-2);
+    font-size: $font-lg;
+    font-weight: $font-semibold;
+    color: $text-primary;
+    margin-bottom: $spacing-4;
+    padding-bottom: $spacing-3;
+    border-bottom: 1px solid $border-color;
+    
+    i {
+      font-size: $font-xl;
+      color: $dark;
+    }
+  }
+  
+  &__items {
+    @include flex-column;
+    gap: $spacing-3;
+  }
+  
+  .summary-item {
+    @include flex(row, flex-start, flex-start, $spacing-3);
+    
+    &__icon {
+      @include flex-center;
+      width: 36px;
+      height: 36px;
+      background: $bg-primary;
+      border-radius: $radius-md;
+      flex-shrink: 0;
+      
+      i {
+        font-size: $font-base;
+        color: $dark;
+      }
+    }
+    
+    &__content {
+      @include flex-column;
+      gap: 2px;
+      
+      .label {
+        font-size: $font-xs;
+        color: $text-muted;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      
+      .value {
+        font-size: $font-sm;
+        font-weight: $font-medium;
+        color: $text-primary;
+      }
+    }
+  }
+  
+  &__total {
+    @include flex-between;
+    margin-top: $spacing-4;
+    padding-top: $spacing-4;
+    border-top: 2px solid $border-color;
+    
+    span:first-child {
+      font-size: $font-base;
+      font-weight: $font-semibold;
+      color: $text-primary;
+    }
+    
+    .amount {
+      font-size: $font-xl;
+      font-weight: $font-bold;
+      color: $dark;
+    }
+  }
+}
+
+// Animations
+.animate-fade-in {
+  animation: fadeIn $transition-base ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

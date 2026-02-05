@@ -1,0 +1,428 @@
+// ===========================================
+// Home Page Styles
+// ===========================================
+
+@use '../abstracts' as *;
+
+.home-page {
+  @include flex-column;
+  gap: $spacing-6;
+}
+
+// Welcome Section
+.welcome-section {
+  @include card($spacing-5);
+  @include flex-between;
+  
+  .welcome-content {
+    .greeting {
+      font-size: $font-sm;
+      color: $text-secondary;
+      margin-bottom: $spacing-1;
+    }
+    
+    .name {
+      @include heading($font-2xl);
+      margin-bottom: $spacing-1;
+    }
+    
+    .subtitle {
+      font-size: $font-base;
+      color: $text-muted;
+    }
+  }
+  
+  .welcome-avatar {
+    @include flex-center;
+    width: 60px;
+    height: 60px;
+    border-radius: $radius-xl;
+    font-size: 1.25rem;
+    font-weight: $font-bold;
+    color: $white;
+    text-transform: uppercase;
+  }
+}
+
+// Simple Search Bar
+.search-bar-simple {
+  @include flex(row, flex-start, center, $spacing-3);
+  padding: $spacing-4;
+  background: $white;
+  border: 1px solid $border-color;
+  border-radius: $radius-full;
+  transition: all $transition-base;
+  
+  &:focus-within {
+    border-color: $primary;
+    box-shadow: 0 0 0 3px $primary-light;
+  }
+  
+  i {
+    font-size: $font-xl;
+    color: $text-muted;
+  }
+  
+  input {
+    flex: 1;
+    font-size: $font-base;
+    color: $text-primary;
+    background: transparent;
+    
+    &::placeholder {
+      color: $text-muted;
+    }
+  }
+}
+
+// Section Header
+.section-header {
+  @include flex-between;
+  margin-bottom: $spacing-4;
+  
+  .section-title {
+    @include heading($font-lg);
+  }
+}
+
+// Categories Grid
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-3;
+  
+  @include mobile {
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-2;
+  }
+}
+
+.category-item {
+  @include flex-column;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-3;
+  background: $white;
+  border-radius: $radius-xl;
+  cursor: pointer;
+  transition: all $transition-base;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+  
+  &__icon {
+    @include flex-center;
+    width: 56px;
+    height: 56px;
+    border-radius: $radius-xl;
+    font-size: $font-2xl;
+    transition: transform $transition-base;
+    
+    i {
+      color: $dark;
+    }
+    
+    @include mobile {
+      width: 48px;
+      height: 48px;
+      font-size: $font-xl;
+    }
+  }
+  
+  &__name {
+    font-size: $font-sm;
+    font-weight: $font-medium;
+    color: $text-primary;
+    text-align: center;
+  }
+  
+  &--more {
+    .category-item__icon {
+      background: $bg-primary;
+      border: 2px dashed $border-color;
+      
+      i {
+        color: $text-muted;
+      }
+    }
+    
+    &:hover .category-item__icon {
+      border-color: $primary;
+      background: $primary-light;
+      
+      i {
+        color: $primary;
+      }
+    }
+  }
+}
+
+// Popular Services
+.popular-list {
+  @include flex-column;
+  gap: $spacing-3;
+}
+
+.popular-card {
+  @include flex(row, flex-start, center, $spacing-3);
+  @include card($spacing-3);
+  position: relative;
+  
+  &__image {
+    @include flex-center;
+    width: 72px;
+    height: 72px;
+    background: $pink-soft;
+    border-radius: $radius-lg;
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+  
+  &__content {
+    flex: 1;
+    min-width: 0;
+    padding-right: 48px;
+  }
+  
+  &__header {
+    @include flex-between;
+    margin-bottom: $spacing-1;
+  }
+  
+  &__name {
+    font-size: $font-base;
+    font-weight: $font-semibold;
+    color: $text-primary;
+    @include text-truncate;
+  }
+  
+  &__rating {
+    @include flex(row, flex-start, center, $spacing-1);
+    font-size: $font-sm;
+    font-weight: $font-medium;
+    
+    i {
+      color: #fbbf24;
+    }
+  }
+  
+  &__description {
+    @include text-truncate;
+    font-size: $font-sm;
+    color: $text-muted;
+    margin-bottom: $spacing-2;
+  }
+  
+  &__footer {
+    @include flex(row, flex-start, center, $spacing-3);
+  }
+  
+  &__price {
+    font-size: $font-base;
+    font-weight: $font-semibold;
+    color: $primary;
+  }
+  
+  &__duration {
+    @include flex(row, flex-start, center, $spacing-1);
+    font-size: $font-sm;
+    color: $text-muted;
+    
+    i {
+      font-size: $font-base;
+    }
+  }
+  
+  &__action {
+    position: absolute;
+    right: $spacing-3;
+    top: 50%;
+    transform: translateY(-50%);
+    @include flex-center;
+    width: 40px;
+    height: 40px;
+    background: $primary;
+    color: $white;
+    border-radius: $radius-lg;
+    font-size: $font-xl;
+    transition: all $transition-base;
+    
+    &:hover {
+      background: $primary-hover;
+      transform: translateY(-50%) scale(1.05);
+    }
+  }
+}
+
+// Upcoming Appointment
+.upcoming-appointment {
+  .appointment-card {
+    position: relative;
+    padding: $spacing-5;
+    background: linear-gradient(135deg, $dark 0%, lighten($dark, 10%) 100%);
+    border-radius: $radius-xl;
+    color: $white;
+    
+    &__header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: $spacing-4;
+      
+      .label {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: $spacing-2;
+        font-size: $font-sm;
+        opacity: 0.9;
+        
+        i {
+          font-size: $font-lg;
+        }
+      }
+      
+      .status {
+        padding: 6px 14px;
+        font-size: $font-xs;
+        font-weight: $font-bold;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-radius: $radius-full;
+        
+        &--pending {
+          background: rgba(#fbbf24, 0.25);
+          color: #fde68a;
+          border: 1px solid rgba(#fbbf24, 0.4);
+        }
+        
+        &--confirmed {
+          background: rgba(#34d399, 0.25);
+          color: #a7f3d0;
+          border: 1px solid rgba(#34d399, 0.4);
+        }
+      }
+    }
+    
+    &__body {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: $spacing-4;
+      margin-top: $spacing-3;
+      
+      .info {
+        flex: 1;
+        
+        h4 {
+          font-size: $font-lg;
+          font-weight: $font-semibold;
+          margin-bottom: $spacing-3;
+          line-height: 1.3;
+        }
+        
+        .meta {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: $spacing-5;
+          flex-wrap: wrap;
+          
+          span {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: $spacing-2;
+            font-size: $font-sm;
+            opacity: 0.9;
+            
+            i {
+              font-size: $font-base;
+              opacity: 0.8;
+            }
+          }
+        }
+      }
+      
+      .view-btn {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: $spacing-1;
+        padding: $spacing-3 $spacing-5;
+        background: rgba($white, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: $radius-full;
+        font-size: $font-sm;
+        font-weight: $font-medium;
+        color: $white;
+        transition: all $transition-base;
+        white-space: nowrap;
+        flex-shrink: 0;
+        
+        &:hover {
+          background: $white;
+          color: $dark;
+        }
+      }
+    }
+  }
+}
+
+// CTA Section
+.cta-section {
+  .cta-card {
+    @include flex(row, space-between, center, $spacing-4);
+    padding: $spacing-5;
+    background: linear-gradient(135deg, $primary 0%, lighten($primary, 10%) 100%);
+    border-radius: $radius-xl;
+    color: $white;
+    
+    @include mobile {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    &__content {
+      flex: 1;
+      
+      h3 {
+        font-size: $font-xl;
+        font-weight: $font-bold;
+        margin-bottom: $spacing-1;
+      }
+      
+      p {
+        font-size: $font-sm;
+        opacity: 0.9;
+      }
+    }
+    
+    &__btn {
+      @include flex(row, center, center, $spacing-2);
+      padding: $spacing-3 $spacing-6;
+      background: $white;
+      color: $primary;
+      font-size: $font-base;
+      font-weight: $font-semibold;
+      border-radius: $radius-full;
+      transition: all $transition-base;
+      
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba($black, 0.2);
+      }
+      
+      @include mobile {
+        margin-top: $spacing-3;
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+}

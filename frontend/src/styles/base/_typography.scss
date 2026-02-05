@@ -1,0 +1,88 @@
+// ===========================================
+// Typography - Text Styles
+// ===========================================
+
+@use '../abstracts' as *;
+
+// Headings
+.heading-1 {
+  @include heading($font-4xl);
+}
+
+.heading-2 {
+  @include heading($font-3xl);
+}
+
+.heading-3 {
+  @include heading($font-2xl);
+}
+
+.heading-4 {
+  @include heading($font-xl);
+}
+
+.heading-5 {
+  @include heading($font-lg);
+}
+
+.heading-6 {
+  @include heading($font-md);
+}
+
+// Body Text
+.text-lg {
+  @include body-text($font-lg);
+}
+
+.text-base {
+  @include body-text($font-base);
+}
+
+.text-sm {
+  @include body-text($font-sm);
+}
+
+.text-xs {
+  @include body-text($font-xs);
+}
+
+// Text Utilities
+.text-primary {
+  color: $text-primary;
+}
+
+.text-secondary {
+  color: $text-secondary;
+}
+
+.text-muted {
+  color: $text-muted;
+}
+
+.text-accent {
+  color: $primary;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.font-medium {
+  font-weight: $font-medium;
+}
+
+.font-semibold {
+  font-weight: $font-semibold;
+}
+
+.font-bold {
+  font-weight: $font-bold;
+}
+
+.truncate {
+  @include text-truncate;
+}

@@ -1,0 +1,108 @@
+// ===========================================
+// Button Component Styles
+// ===========================================
+
+@use '../abstracts' as *;
+
+.btn {
+  @include button-base;
+  padding: $spacing-3 $spacing-5;
+  font-size: $font-base;
+  border-radius: $radius-lg;
+  
+  // Sizes
+  &--sm {
+    padding: $spacing-2 $spacing-3;
+    font-size: $font-sm;
+    border-radius: $radius-md;
+  }
+  
+  &--lg {
+    padding: $spacing-4 $spacing-6;
+    font-size: $font-md;
+    border-radius: $radius-xl;
+  }
+  
+  &--full {
+    width: 100%;
+  }
+  
+  // Variants
+  &--primary {
+    @include button-primary;
+    
+    &:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: $shadow-primary;
+    }
+  }
+  
+  &--secondary {
+    @include button-secondary;
+    border: 1.5px solid $border-color;
+  }
+  
+  &--ghost {
+    @include button-ghost;
+  }
+  
+  &--outline {
+    @include button-base;
+    background: transparent;
+    border: 1.5px solid $primary;
+    color: $primary;
+    
+    &:hover:not(:disabled) {
+      background: $primary-light;
+    }
+  }
+  
+  &--danger {
+    @include button-base;
+    background: $error-light;
+    color: $error;
+    
+    &:hover:not(:disabled) {
+      background: #fecaca;
+    }
+  }
+  
+  &--success {
+    @include button-base;
+    background: $success-light;
+    color: $success;
+    
+    &:hover:not(:disabled) {
+      background: #a7f3d0;
+    }
+  }
+  
+  // Icon
+  &__icon {
+    font-size: 1.125em;
+  }
+}
+
+// Icon Button
+.icon-btn {
+  @include icon-button;
+  
+  &--sm {
+    @include icon-button(32px);
+    font-size: $font-base;
+  }
+  
+  &--lg {
+    @include icon-button(48px);
+    font-size: $font-xl;
+  }
+  
+  &--primary {
+    background: $primary;
+    color: $white;
+    
+    &:hover {
+      background: $primary-hover;
+    }
+  }
+}

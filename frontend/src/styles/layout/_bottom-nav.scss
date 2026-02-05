@@ -1,0 +1,91 @@
+// ===========================================
+// Bottom Navigation Layout Styles
+// ===========================================
+
+@use '../abstracts' as *;
+
+.bottom-nav {
+  @include flex(row, space-around, center);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: $spacing-2 $spacing-3;
+  padding-bottom: calc($spacing-2 + env(safe-area-inset-bottom));
+  background: $white;
+  border-top: 1px solid $border-color;
+  box-shadow: 0 -2px 10px rgba($black, 0.04);
+  z-index: $z-fixed;
+  
+  &__item {
+    @include flex-column;
+    align-items: center;
+    gap: 4px;
+    padding: $spacing-2 $spacing-4;
+    border-radius: $radius-lg;
+    color: $text-muted;
+    text-decoration: none;
+    transition: all $transition-base;
+    
+    &:hover:not(.bottom-nav__item--active) {
+      color: $text-secondary;
+      background: $bg-primary;
+    }
+    
+    &--active {
+      color: $primary;
+    }
+  }
+  
+  &__icon {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    @include flex-center;
+    
+    i {
+      font-size: $font-2xl;
+      transition: all $transition-base;
+      
+      &.outline {
+        display: block;
+      }
+      
+      &.filled {
+        display: none;
+      }
+    }
+    
+    .bottom-nav__item--active & {
+      i.outline {
+        display: none;
+      }
+      
+      i.filled {
+        display: block;
+      }
+    }
+  }
+  
+  &__label {
+    font-size: 10px;
+    font-weight: $font-medium;
+    transition: all $transition-base;
+    
+    .bottom-nav__item--active & {
+      font-weight: $font-semibold;
+    }
+  }
+  
+  @include mobile {
+    padding: $spacing-1 $spacing-2;
+    
+    &__item {
+      padding: $spacing-2;
+    }
+    
+    &__label {
+      font-size: 9px;
+    }
+  }
+}
