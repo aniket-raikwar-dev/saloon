@@ -58,6 +58,7 @@ class ApiService {
     
     const config = {
       ...options,
+      credentials: 'include', // Include cookies for cross-origin requests
       headers: {
         ...this.getHeaders(options.auth !== false),
         ...options.headers,
@@ -66,19 +67,48 @@ class ApiService {
 
     try {
       const response = await fetch(url, config)
-      const data = await response.json()
+      
+      // Check if response is JSON before parsing
+      const contentType = response.headers.get('content-type')
+      let data
+      
+      if (contentType && contentType.includes('application/json')) {
+        data = await response.json()
+      } else {
+        // If not JSON, get text for error message
+        const text = await response.text()
+        throw new Error(`Server returned non-JSON response: ${text}`)
+      }
 
       if (!response.ok) {
         // Handle token expiry
         if (response.status === 401) {
           this.clearToken()
         }
-        throw new Error(data.message || 'An error occurred')
+        
+        // Provide more detailed error for CORS issues
+        if (response.status === 0 || response.type === 'opaque') {
+          throw new Error('CORS error: Unable to connect to API. Check if your frontend URL is whitelisted in backend CORS settings.')
+        }
+        
+        throw new Error(data.message || `Request failed with status ${response.status}`)
       }
 
       return data
     } catch (error) {
-      console.error(`API Error [${endpoint}]:`, error)
+      // Enhanced error logging for mobile debugging
+      console.error(`API Error [${endpoint}]:`, {
+        url,
+        error: error.message,
+        stack: error.stack,
+        baseUrl: this.baseUrl
+      })
+      
+      // Re-throw with more context
+      if (error.name === 'TypeError' && error.message.includes('fetch')) {
+        throw new Error('Network error: Unable to reach the server. Check your internet connection and API URL.')
+      }
+      
       throw error
     }
   }

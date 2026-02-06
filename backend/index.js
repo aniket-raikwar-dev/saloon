@@ -34,24 +34,45 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: function(origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
+    // Allow requests with no origin (like mobile apps, Postman, or curl requests)
+    if (!origin) {
+      console.log('⚠️ Request with no origin (likely mobile app or direct API call)');
+      return callback(null, true);
+    }
     
     // In development, allow all origins for easier testing
     if (process.env.NODE_ENV === 'development') {
       return callback(null, true);
     }
     
-    // In production, check against allowed origins
+    // Check if origin matches allowed origins
     if (allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      // Log the blocked origin for debugging
+      console.log(`❌ CORS blocked origin: ${origin}`);
+      console.log(`✅ Allowed origins: ${allowedOrigins.join(', ')}`);
+      
+      // For mobile browsers, be more lenient - check if it's from the same domain
+      // This handles cases where mobile browsers might send different origin headers
+      const originHost = new URL(origin).hostname;
+      const allowedHosts = allowedOrigins
+        .filter(o => o.startsWith('http'))
+        .map(o => new URL(o).hostname);
+      
+      if (allowedHosts.includes(originHost)) {
+        console.log(`✅ Allowing by hostname match: ${originHost}`);
+        return callback(null, true);
+      }
+      
+      callback(new Error(`Not allowed by CORS. Origin: ${origin}`));
     }
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  exposedHeaders: ['Authorization'],
+  maxAge: 86400, // 24 hours - helps with mobile browser caching
 }));
 
 app.use(express.json({ limit: '10mb' }));
