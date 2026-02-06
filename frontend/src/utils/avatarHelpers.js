@@ -11,25 +11,25 @@ export const getInitials = (name) => {
 };
 
 // Generate a consistent color based on a string (name)
-// Returns a pleasant, muted color suitable for avatars
+// Returns pleasant pink/feminine-themed colors suitable for a beauty app
 const avatarColors = [
-  '#6366f1', // Indigo
-  '#8b5cf6', // Violet
-  '#a855f7', // Purple
-  '#d946ef', // Fuchsia
-  '#ec4899', // Pink
-  '#f43f5e', // Rose
-  '#ef4444', // Red
-  '#f97316', // Orange
-  '#f59e0b', // Amber
-  '#eab308', // Yellow
-  '#84cc16', // Lime
-  '#22c55e', // Green
-  '#10b981', // Emerald
-  '#14b8a6', // Teal
-  '#06b6d4', // Cyan
-  '#0ea5e9', // Sky
-  '#3b82f6', // Blue
+  '#e91e63', // Pink (Primary)
+  '#f06292', // Pink Light
+  '#ec407a', // Pink Medium
+  '#c2185b', // Pink Dark
+  '#ad1457', // Pink Darker
+  '#d81b60', // Pink Rose
+  '#f50057', // Pink Accent
+  '#ff4081', // Pink Hot
+  '#ab47bc', // Purple
+  '#7b1fa2', // Purple Dark
+  '#9c27b0', // Purple Medium
+  '#ba68c8', // Purple Light
+  '#ce93d8', // Lavender
+  '#e1bee7', // Lavender Light
+  '#ef5350', // Red Light
+  '#ff7043', // Coral
+  '#ff8a65', // Peach
 ];
 
 export const getAvatarColor = (name) => {

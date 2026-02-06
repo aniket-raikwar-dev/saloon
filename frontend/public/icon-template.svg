@@ -1,0 +1,26 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e91e63;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f06292;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="512" height="512" fill="url(#bgGradient)" rx="100"/>
+  
+  <!-- Beauty Icon - Sparkle/Star -->
+  <g transform="translate(256, 256)">
+    <!-- Main Sparkle -->
+    <path d="M 0 -120 L 20 -40 L 100 -40 L 30 0 L 50 80 L 0 30 L -50 80 L -30 0 L -100 -40 L -20 -40 Z" 
+          fill="#ffffff" 
+          opacity="0.95"/>
+    
+    <!-- Small Sparkles -->
+    <circle cx="-80" cy="-80" r="8" fill="#ffffff" opacity="0.8"/>
+    <circle cx="80" cy="-80" r="8" fill="#ffffff" opacity="0.8"/>
+    <circle cx="-80" cy="80" r="8" fill="#ffffff" opacity="0.8"/>
+    <circle cx="80" cy="80" r="8" fill="#ffffff" opacity="0.8"/>
+  </g>
+</svg>

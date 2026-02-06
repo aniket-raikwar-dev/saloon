@@ -1,408 +1,498 @@
 // ===========================================
-// Services Page Styles (Behance-inspired)
+// Services Page - Complete Redesign
 // ===========================================
 
 @use '../abstracts' as *;
 
 .services-page {
-  @include flex-column;
-  height: 100%;
-  overflow: hidden;
-}
-
-// Sticky Header Section
-.services-sticky-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: $bg-primary;
-  padding-bottom: $spacing-3;
-  
-  // Add subtle shadow when scrolling
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: $border-color;
-  }
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: $bg-secondary;
+  padding-bottom: 100px;
 }
 
 // Header
 .services-header {
-  text-align: center;
-  padding: $spacing-2 0 $spacing-3;
-  
-  .services-title {
-    @include heading($font-2xl);
-    margin-bottom: $spacing-1;
+  background: $primary-gradient;
+  padding: $spacing-6 $spacing-5 $spacing-5;
+  border-radius: 0 0 $radius-2xl $radius-2xl;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+    background: rgba($white, 0.1);
+    border-radius: 50%;
   }
-  
-  .services-subtitle {
-    color: $text-muted;
-    font-size: $font-base;
+
+  .header-content {
+    position: relative;
+    z-index: 1;
+
+    h1 {
+      font-family: $font-heading;
+      font-size: $font-2xl;
+      font-weight: $font-bold;
+      color: $white;
+      margin-bottom: 4px;
+    }
+
+    p {
+      font-size: $font-sm;
+      color: rgba($white, 0.9);
+    }
   }
 }
 
-// Search
-.services-search {
-  @include flex(row, flex-start, center, $spacing-3);
-  padding: $spacing-3 $spacing-4;
-  margin: 0 $spacing-1;
+// Controls Section
+.services-controls {
+  padding: $spacing-4 $spacing-5;
   background: $white;
-  border: 1.5px solid $border-color;
-  border-radius: $radius-full;
-  transition: all $transition-base;
-  
-  &:focus-within {
-    border-color: $primary;
-    box-shadow: 0 0 0 4px $primary-light;
-  }
-  
-  i {
-    font-size: $font-xl;
+  border-bottom: 1px solid $border-light;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+// Search
+.search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacing-4;
+
+  > i {
+    position: absolute;
+    left: $spacing-4;
     color: $text-muted;
+    font-size: $font-lg;
+    z-index: 1;
   }
-  
+
   input {
-    flex: 1;
+    width: 100%;
+    padding: $spacing-3 $spacing-4 $spacing-3 44px;
+    background: $bg-primary;
+    border: 1.5px solid $border-color;
+    border-radius: $radius-full;
     font-size: $font-base;
-    background: transparent;
-    
+    color: $text-primary;
+    transition: all 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: $primary;
+      background: $white;
+      box-shadow: 0 0 0 4px rgba($primary, 0.1);
+    }
+
     &::placeholder {
       color: $text-muted;
     }
   }
-  
-  .clear-search {
+
+  .clear-btn {
+    position: absolute;
+    right: $spacing-3;
     @include flex-center;
     width: 28px;
     height: 28px;
-    background: $bg-primary;
+    background: transparent;
+    border: none;
     border-radius: $radius-full;
     color: $text-muted;
-    transition: all $transition-base;
-    
+    cursor: pointer;
+    transition: all 0.2s ease;
+
     &:hover {
-      background: $border-color;
-      color: $text-primary;
+      background: $pink-soft;
+      color: $primary;
     }
   }
 }
 
-// Categories
-.services-categories {
-  @include flex(row, flex-start, center, $spacing-2);
+// Category Filters
+.category-filters {
+  display: flex;
+  gap: 8px;
   overflow-x: auto;
-  padding: $spacing-3 $spacing-1;
-  -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  
+  padding-bottom: 2px;
+
   &::-webkit-scrollbar {
     display: none;
   }
 }
 
-.category-chip {
-  @include flex(row, center, center, $spacing-2);
-  padding: $spacing-2 $spacing-4;
-  background: $white;
+.filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: $bg-primary;
   border: 1.5px solid $border-color;
   border-radius: $radius-full;
-  font-size: $font-sm;
+  font-size: 13px;
   font-weight: $font-medium;
   color: $text-secondary;
   white-space: nowrap;
-  transition: all $transition-base;
-  
+  cursor: pointer;
+  transition: all 0.25s ease;
+
   i {
-    font-size: $font-base;
+    font-size: 14px;
   }
-  
+
   &:hover {
     border-color: $primary;
     color: $primary;
+    background: $pink-soft;
   }
-  
+
   &--active {
-    background: $dark;
-    border-color: $dark;
+    background: $primary;
+    border-color: $primary;
     color: $white;
-    
-    &:hover {
-      background: $dark;
-      border-color: $dark;
+    box-shadow: 0 2px 8px rgba($primary, 0.3);
+
+    i {
       color: $white;
     }
   }
 }
 
-// Scrollable Area
-.services-scroll-area {
-  flex: 1;
-  overflow-y: auto;
-  padding: $spacing-3 0;
-  padding-bottom: 120px;
-  -webkit-overflow-scrolling: touch;
+// Services Container
+.services-container {
+  padding: $spacing-4 $spacing-5;
 }
 
-// Services Grid
+// Services Grid - 2 columns
 .services-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: $spacing-3;
-  padding: 0 $spacing-1;
-  
-  @include mobile {
-    gap: $spacing-2;
-  }
 }
 
-// Service Card - Behance Style
-.service-card {
+// Service Item - Modern Card Design
+.service-item {
   position: relative;
   background: $white;
   border-radius: $radius-xl;
-  overflow: hidden;
+  padding: $spacing-4;
   cursor: pointer;
-  transition: all $transition-base;
-  border: 2px solid transparent;
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: $shadow-lg;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid $border-light;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: $primary-gradient;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
   }
-  
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-color: rgba($primary, 0.3);
+
+    &::before {
+      transform: scaleX(1);
+    }
+  }
+
   &--selected {
     border-color: $primary;
-    
-    .service-card__visual {
-      &::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: rgba($primary, 0.08);
-        border-radius: $radius-lg;
-      }
+    background: linear-gradient(135deg, rgba($primary, 0.03) 0%, $white 100%);
+    box-shadow: 0 4px 16px rgba($primary, 0.15);
+
+    &::before {
+      transform: scaleX(1);
+    }
+
+    .service-icon-wrapper {
+      background: linear-gradient(135deg, rgba($primary, 0.15) 0%, rgba($primary, 0.08) 100%);
     }
   }
-  
-  // Checkmark - Top Right of Card
-  &__check {
-    position: absolute;
-    top: $spacing-2;
-    right: $spacing-2;
-    @include flex-center;
-    width: 24px;
-    height: 24px;
-    background: $primary;
+}
+
+// Checkbox
+.service-checkbox {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  @include flex-center;
+  width: 24px;
+  height: 24px;
+  border: 2px solid $border-color;
+  border-radius: $radius-sm;
+  background: $white;
+  transition: all 0.2s ease;
+  z-index: 2;
+
+  i {
+    font-size: 14px;
     color: $white;
-    border-radius: $radius-full;
-    font-size: $font-sm;
-    z-index: 3;
-    animation: scaleIn 0.2s ease;
+  }
+
+  &--checked {
+    background: $primary;
+    border-color: $primary;
     box-shadow: 0 2px 8px rgba($primary, 0.4);
   }
-  
-  // Popular Badge - Compact, Top Left
-  &__badge {
+}
+
+// Popular Tag
+.popular-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  @include flex-center;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, $warning 0%, darken($warning, 8%) 100%);
+  color: $white;
+  border-radius: $radius-full;
+  font-size: 14px;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba($warning, 0.3);
+}
+
+// Icon Wrapper
+.service-icon-wrapper {
+  @include flex-center;
+  width: 100%;
+  height: 120px;
+  background: linear-gradient(135deg, $bg-primary 0%, $pink-soft 100%);
+  border-radius: $radius-lg;
+  margin-bottom: $spacing-3;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
     position: absolute;
-    top: $spacing-2;
-    left: $spacing-2;
-    padding: 3px 8px;
-    background: $dark;
-    color: $white;
-    font-size: 9px;
-    font-weight: $font-bold;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-    border-radius: $radius-md;
-    z-index: 2;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba($primary, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
-  
-  // Visual/Image Area with Border Radius
-  &__visual {
-    position: relative;
-    @include flex-center;
-    height: 100px;
-    margin: $spacing-2;
-    margin-bottom: 0;
-    background: linear-gradient(135deg, $bg-primary 0%, $pink-soft 100%);
-    border-radius: $radius-lg;
-    
-    @include mobile {
-      height: 80px;
-    }
+
+  .service-item:hover &::after {
+    opacity: 1;
   }
-  
-  &__emoji {
-    font-size: 2.5rem;
-    
-    @include mobile {
-      font-size: 2rem;
-    }
-  }
-  
-  &__content {
-    padding: $spacing-3;
-    
-    @include mobile {
-      padding: $spacing-2;
-    }
-  }
-  
-  &__name {
-    font-size: $font-base;
-    font-weight: $font-semibold;
-    color: $text-primary;
-    margin-bottom: $spacing-1;
-    @include text-truncate;
-    
-    @include mobile {
-      font-size: $font-sm;
-    }
-  }
-  
-  &__description {
-    font-size: $font-sm;
-    color: $text-muted;
-    margin-bottom: $spacing-2;
-    @include text-truncate;
-    
-    @include mobile {
-      font-size: $font-xs;
-    }
-  }
-  
-  &__meta {
-    margin-bottom: $spacing-2;
-  }
-  
-  &__duration {
-    @include flex(row, flex-start, center, $spacing-1);
-    font-size: $font-xs;
-    color: $text-secondary;
-    
-    i {
-      font-size: $font-sm;
-    }
-  }
-  
-  &__footer {
-    @include flex-between;
-    padding-top: $spacing-2;
-    border-top: 1px solid $border-color;
-  }
-  
-  &__price {
-    font-size: $font-base;
-    font-weight: $font-bold;
+}
+
+.service-icon {
+  font-size: 3rem;
+  z-index: 1;
+  transition: transform 0.3s ease;
+}
+
+.service-item:hover .service-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+// Service Info
+.service-info {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+  flex: 1;
+}
+
+.service-title {
+  font-size: $font-base;
+  font-weight: $font-semibold;
+  color: $text-primary;
+  line-height: 1.4;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.service-details {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+}
+
+.service-time {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: $text-muted;
+
+  i {
+    font-size: 13px;
     color: $primary;
-    
-    @include mobile {
-      font-size: $font-sm;
-    }
   }
+}
+
+.service-price-wrapper {
+  margin-top: auto;
+  padding-top: $spacing-2;
+  border-top: 1px dashed $border-color;
+}
+
+.service-price {
+  font-size: $font-lg;
+  font-weight: $font-bold;
+  color: $primary;
 }
 
 // Empty State
-.services-empty {
-  @include flex-column;
+.empty-state {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: $spacing-10;
+  padding: $spacing-16 $spacing-6;
   text-align: center;
-  
-  i {
-    font-size: 3rem;
-    color: $text-muted;
-    margin-bottom: $spacing-3;
+
+  .empty-icon {
+    @include flex-center;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, $pink-soft 0%, $pink-medium 100%);
+    border-radius: $radius-full;
+    margin-bottom: $spacing-5;
+    box-shadow: 0 8px 24px rgba($primary, 0.15);
+
+    i {
+      font-size: 2.5rem;
+      color: $primary;
+    }
   }
-  
-  p {
+
+  h3 {
+    font-family: $font-heading;
     font-size: $font-lg;
     font-weight: $font-semibold;
     color: $text-primary;
-    margin-bottom: $spacing-1;
+    margin-bottom: $spacing-2;
   }
-  
-  span {
+
+  p {
     font-size: $font-sm;
     color: $text-muted;
   }
 }
 
-// Book Now Bar
-.book-now-bar {
+// Loading State
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-16;
+  gap: $spacing-4;
+
+  .loader {
+    width: 44px;
+    height: 44px;
+    border: 3px solid $pink-medium;
+    border-top-color: $primary;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  p {
+    font-size: $font-sm;
+    color: $text-muted;
+  }
+}
+
+// Action Bar
+.action-bar {
   position: fixed;
   bottom: 72px;
   left: 0;
   right: 0;
-  @include flex-between;
-  padding: $spacing-4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-4 $spacing-5;
   background: $white;
-  box-shadow: $shadow-lg;
-  border-top: 1px solid $border-color;
-  animation: slideUp 0.3s ease;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  border-top: 1px solid $border-light;
   z-index: 100;
-  
-  &__info {
-    @include flex-column;
-    gap: 2px;
+  animation: slideUp 0.3s ease;
+}
+
+.action-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  .action-count {
+    font-size: 12px;
+    color: $text-muted;
   }
-  
-  &__count {
-    font-size: $font-sm;
-    color: $text-secondary;
-  }
-  
-  &__total {
-    font-size: $font-lg;
+
+  .action-total {
+    font-size: $font-xl;
     font-weight: $font-bold;
     color: $text-primary;
   }
-  
-  &__btn {
-    @include flex(row, center, center, $spacing-2);
-    padding: $spacing-3 $spacing-6;
-    background: $dark;
-    color: $white;
-    font-size: $font-base;
-    font-weight: $font-semibold;
-    border-radius: $radius-full;
-    transition: all $transition-base;
-    
-    &:hover {
-      background: $primary;
-    }
-    
-    i {
-      font-size: $font-lg;
-    }
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-4 $spacing-6;
+  background: $primary-gradient;
+  color: $white;
+  border: none;
+  border-radius: $radius-full;
+  font-size: $font-base;
+  font-weight: $font-semibold;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 16px rgba($primary, 0.35);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba($primary, 0.4);
+  }
+
+  i {
+    font-size: 18px;
   }
 }
 
 // Animations
-@keyframes scaleIn {
-  0% {
-    transform: scale(0);
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
     opacity: 0;
   }
-  100% {
-    transform: scale(1);
+  to {
+    transform: translateY(0);
     opacity: 1;
   }
 }
 
-@keyframes slideUp {
-  0% {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
