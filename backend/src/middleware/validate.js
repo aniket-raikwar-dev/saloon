@@ -33,10 +33,21 @@ export const registerValidation = [
     .notEmpty().withMessage('Password is required')
     .isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
   body('phone')
-    .optional()
+    .optional({ nullable: true, checkFalsy: true })
     .trim()
-    .matches(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/)
-    .withMessage('Please enter a valid phone number'),
+    .custom((value) => {
+      // If phone is not provided or is empty, skip validation
+      if (!value || value.trim() === '') {
+        return true;
+      }
+      // Remove common formatting characters and validate
+      const cleanedPhone = value.replace(/[\s\-\(\)\.]/g, '');
+      const phoneRegex = /^[\+]?[0-9]{10,15}$/;
+      if (!phoneRegex.test(cleanedPhone)) {
+        throw new Error('Please enter a valid phone number (10-15 digits)');
+      }
+      return true;
+    }),
 ];
 
 export const loginValidation = [

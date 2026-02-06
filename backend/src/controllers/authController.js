@@ -6,8 +6,8 @@ import firebaseAdmin from '../config/firebase.js';
 // Cookie options
 const cookieOptions = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === 'production',
-  sameSite: 'strict',
+  secure: process.env.NODE_ENV === 'production', // Requires HTTPS in production
+  sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // 'none' for cross-origin in production
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
 };
 
@@ -15,43 +15,64 @@ const cookieOptions = {
 // @route   POST /api/auth/register
 // @access  Public
 export const register = asyncHandler(async (req, res) => {
-  const { name, email, password, phone } = req.body;
+  try {
+    const { name, email, password, phone } = req.body;
 
-  // Check if user already exists
-  const existingUser = await User.findByEmail(email);
-  if (existingUser) {
-    throw new AppError('Email already registered', 400);
+    // Validate required fields
+    if (!name || !email || !password) {
+      throw new AppError('Name, email, and password are required', 400);
+    }
+
+    // Normalize email
+    const normalizedEmail = email.toLowerCase().trim();
+
+    // Check if user already exists
+    const existingUser = await User.findByEmail(normalizedEmail);
+    if (existingUser) {
+      throw new AppError('Email already registered', 400);
+    }
+
+    // Prepare user data
+    const userData = {
+      name: name.trim(),
+      email: normalizedEmail,
+      password,
+      authProvider: 'local',
+    };
+
+    // Only include phone if it's provided and not empty
+    if (phone && phone.trim() && phone.trim().length > 0) {
+      userData.phone = phone.trim();
+    }
+
+    // Create user
+    const user = await User.create(userData);
+
+    // Generate tokens
+    const { accessToken, refreshToken } = generateTokens(user._id);
+
+    // Save refresh token to database
+    user.refreshToken = refreshToken;
+    user.lastLogin = new Date();
+    await user.save({ validateBeforeSave: false });
+
+    // Set cookies
+    res.cookie('accessToken', accessToken, cookieOptions);
+    res.cookie('refreshToken', refreshToken, { ...cookieOptions, maxAge: 30 * 24 * 60 * 60 * 1000 });
+
+    res.status(201).json({
+      success: true,
+      message: 'Registration successful',
+      data: {
+        user: user.toSafeObject(),
+        accessToken,
+      },
+    });
+  } catch (error) {
+    // Log error for debugging
+    console.error('Registration Error:', error);
+    throw error; // Re-throw to be handled by errorHandler
   }
-
-  // Create user
-  const user = await User.create({
-    name,
-    email,
-    password,
-    phone,
-    authProvider: 'local',
-  });
-
-  // Generate tokens
-  const { accessToken, refreshToken } = generateTokens(user._id);
-
-  // Save refresh token to database
-  user.refreshToken = refreshToken;
-  user.lastLogin = new Date();
-  await user.save({ validateBeforeSave: false });
-
-  // Set cookies
-  res.cookie('accessToken', accessToken, cookieOptions);
-  res.cookie('refreshToken', refreshToken, { ...cookieOptions, maxAge: 30 * 24 * 60 * 60 * 1000 });
-
-  res.status(201).json({
-    success: true,
-    message: 'Registration successful',
-    data: {
-      user: user.toSafeObject(),
-      accessToken,
-    },
-  });
 });
 
 // @desc    Login user

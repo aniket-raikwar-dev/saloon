@@ -60,7 +60,13 @@ const sendErrorProd = (err, res) => {
   }
   // Programming or other unknown error: don't leak error details
   else {
-    console.error('ERROR 💥', err);
+    // Log full error details for debugging (in production logs)
+    console.error('ERROR 💥', {
+      name: err.name,
+      message: err.message,
+      stack: err.stack,
+      statusCode: err.statusCode,
+    });
     res.status(500).json({
       success: false,
       status: 'error',
