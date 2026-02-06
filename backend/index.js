@@ -27,8 +27,9 @@ const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:3001',
   'http://localhost:5173',
+  // Production frontend URLs
+  'https://saloon-x1ua.vercel.app', // Vercel deployment
   process.env.FRONTEND_URL,
-  // Add production frontend URLs here
   process.env.FRONTEND_URL_PROD
 ].filter(Boolean);
 
@@ -48,25 +49,53 @@ app.use(cors({
     // Check if origin matches allowed origins
     if (allowedOrigins.includes(origin)) {
       callback(null, true);
-    } else {
-      // Log the blocked origin for debugging
-      console.log(`❌ CORS blocked origin: ${origin}`);
-      console.log(`✅ Allowed origins: ${allowedOrigins.join(', ')}`);
+      return;
+    }
+    
+    // For mobile browsers and Vercel deployments - check hostname matching
+    try {
+      const originUrl = new URL(origin);
+      const originHost = originUrl.hostname;
       
-      // For mobile browsers, be more lenient - check if it's from the same domain
-      // This handles cases where mobile browsers might send different origin headers
-      const originHost = new URL(origin).hostname;
+      // Allow all Vercel deployments (*.vercel.app)
+      if (originHost.endsWith('.vercel.app')) {
+        console.log(`✅ Allowing Vercel deployment: ${originHost}`);
+        callback(null, true);
+        return;
+      }
+      
+      // Allow Netlify deployments (*.netlify.app)
+      if (originHost.endsWith('.netlify.app') || originHost.endsWith('.netlify.com')) {
+        console.log(`✅ Allowing Netlify deployment: ${originHost}`);
+        callback(null, true);
+        return;
+      }
+      
+      // Check if hostname matches any allowed origin hostname
       const allowedHosts = allowedOrigins
-        .filter(o => o.startsWith('http'))
-        .map(o => new URL(o).hostname);
+        .filter(o => o && o.startsWith('http'))
+        .map(o => {
+          try {
+            return new URL(o).hostname;
+          } catch {
+            return null;
+          }
+        })
+        .filter(Boolean);
       
       if (allowedHosts.includes(originHost)) {
         console.log(`✅ Allowing by hostname match: ${originHost}`);
-        return callback(null, true);
+        callback(null, true);
+        return;
       }
-      
-      callback(new Error(`Not allowed by CORS. Origin: ${origin}`));
+    } catch (e) {
+      // Invalid URL, continue to error
     }
+    
+    // Log the blocked origin for debugging
+    console.log(`❌ CORS blocked origin: ${origin}`);
+    console.log(`✅ Allowed origins: ${allowedOrigins.join(', ')}`);
+    callback(new Error(`Not allowed by CORS. Origin: ${origin}`));
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
