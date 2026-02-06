@@ -39,7 +39,11 @@ export default defineConfig({
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,woff2}'],
+        // Exclude all SVG files from precaching (they'll be cached via runtime caching)
+        globIgnores: ['**/*.svg'],
+        // Increase file size limit for precaching as fallback (default is 2MB)
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5MB
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
@@ -76,6 +80,18 @@ export default defineConfig({
               cacheName: 'remixicon-cache',
               expiration: {
                 maxEntries: 50,
+                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
+              }
+            }
+          },
+          {
+            // Cache large SVG files (like remixicon) via runtime caching
+            urlPattern: /\.svg$/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'svg-cache',
+              expiration: {
+                maxEntries: 100,
                 maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
               }
             }
